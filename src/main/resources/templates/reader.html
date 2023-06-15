@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Library</title>
+    <style>
+{margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
+
+.container {
+ max-width: 1900px;
+ margin: 50px auto;
+ margin-bottom: 50px;
+ display:inline;
+ float:left;
+ padding:10px;
+}
+
+h1 {
+ margin-bottom: 20px;
+ text-align: center;
+ color: #2c3e50;
+}
+
+.block{
+ max-width: 6000px;
+ margin: 50px auto;
+ padding: 50px;
+ background-color: #fff;
+ border-radius: 10px;
+}
+block a {
+ display: inline-block;
+ margin-top: 100px;
+ margin: 15px;
+ padding: 15px 15px 15px 20px;
+ width: 350px;
+ background-color: #2c3e50;
+ color: #fff;
+ text-align: center;
+ text-decoration: none;
+ border-radius: 10px;
+ transition: background-color 0.3s ease-in-out;
+ font-size: 24px;
+}
+
+block a:hover {
+ background-color: #2c3e50;
+}
+
+.card {
+ background-color: #fff;
+ box-shadow: 0 0 10px rgba(0,0,0,0.3);
+ border-radius: 10px;
+ overflow: hidden;
+}
+
+.card-header {
+ display: flex;
+ align-items: center;
+ padding: 20px;
+ background-color: #2c3e50;
+ color: #fff;
+}
+
+.card-header a {
+ font-size: 22px;
+ font-weight: normal;
+}
+
+.card-body {
+ padding: 20px;
+}
+
+.card-body p {
+ margin-bottom: 10px;
+ color: #2c3e50;
+ font-size: 16px;
+}
+
+.card-body p strong {
+ font-size: 18px;
+ font-weight: bold;
+}
+
+.container1 {
+ max-width: 1800px;
+ margin: 50px auto;
+ border-radius: 10px;
+ display:inline;
+ float:left;
+ padding : 10px;
+}
+
+form label {
+ display: block;
+ margin-top: 15px;
+ color: #2c3e50;
+ font-weight: bold;
+  font-size: 22px;
+}
+
+form input[type="text"],
+form textarea {
+ display: block;
+ width: 1800px;
+ padding: 10px;
+ margin-top: 5px;
+ border: none;
+ border-radius: 5px;
+ background-color: #ecf0f1;
+ color: #2c3e50;
+ font-size: 24px;
+}
+
+form input[type="submit"] {
+ display: block;
+ width:1900px;
+ padding: 10px;
+ margin-top: 20px;
+ border: none;
+ border-radius: 5px;
+ background-color:  #2c3e50;
+ color: #fff;
+ font-size: 26px;
+ cursor: pointer;
+}
+
+form input[type="submit"]:hover {
+ background-color: #34495e;
+}
+    </style>
+</head>
+<body>
+<block class="block">
+    <a href="#">Читатели</a> <a href="logbook">Формуляр</a> <a href="librarian">Библиотекари</a><a href="reader?Param=true">Должники</a>
+</block>
+<h1>Данные об читателях</h1>
+<div class="container1">
+    <form>
+        <label for="Profession">Профессия:</label>
+        <input type="text" id="Profession" name="Profession" required>
+        <label for="Age">Возраст:</label>
+        <input type="text" id="Age" name="Age" required>
+        <label for="Gender">Пол:</label>
+        <input type="text" id="Gender" name="Gender" required>
+        <input type="submit" value="Поиск">
+    </form>
+</div>
+<div class="container" th:each = "reader : ${Reader}">
+    <div class="card">
+        <div class="card-header">
+            <a th:text="${reader.fullName}"></a>
+        </div>
+        <div class="card-body">
+            <p><strong>Номер читательского билета:</strong></p><p th:text="${reader.libraryCardNumber}"></p>
+            <p><strong>Возраст:</strong></p><p th:text="${reader.age}"></p>
+            <p><strong>Паспортные данные:</strong></p><p th:text="${reader.passportData}"></p>
+            <p><strong>Пол:</strong></p><p th:text="${reader.gender}"></p>
+            <p><strong>Взятые книги:</strong></p><p th:text="${reader.takenBooks}"></p>
+            <p><strong>Профессия:</strong></p><p th:text="${reader.profession}"></p>
+            <p><strong>Дата записи в библиотеку:</strong></p><p th:text="${reader.libraryEntryDates}"></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

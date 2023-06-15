@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Librarian</title>
+    <style>
+{margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
+
+.container {
+ max-width: 500px;
+ margin: 50px auto;
+ margin-bottom: 50px;
+  display:inline;
+ float:left;
+ padding:10px;
+}
+
+h1 {
+ margin-bottom: 20px;
+ text-align: center;
+ color: #2c3e50;
+}
+
+.card {
+ background-color: #fff;
+ box-shadow: 0 0 10px rgba(0,0,0,0.3);
+ border-radius: 10px;
+ overflow: hidden;
+}
+
+.card-header {
+ display: flex;
+ align-items: center;
+ padding: 20px;
+ background-color: #2c3e50;
+ color: #fff;
+}
+
+
+.card-header a {
+ font-size: 24px;
+ font-weight: normal;
+}
+
+.card-body {
+ padding: 20px;
+}
+
+.card-body p {
+ margin-bottom: 10px;
+ color: #2c3e50;
+ font-size: 16px;
+}
+
+.card-body p strong {
+ font-size: 18px;
+ font-weight: bold;
+}
+.block{
+ max-width: 6000px;
+ margin: 50px auto;
+ padding: 50px;
+ background-color: #fff;
+ border-radius: 10px;
+}
+block a {
+ display: inline-block;
+ margin-top: 100px;
+ margin: 15px;
+ padding: 15px 15px 15px 20px;
+ width: 350px;
+ background-color: #2c3e50;
+ color: #fff;
+ text-align: center;
+ text-decoration: none;
+ border-radius: 10px;
+ transition: background-color 0.3s ease-in-out;
+ font-size: 24px;
+}
+
+block a:hover {
+ background-color: #2c3e50;
+}
+    </style>
+</head>
+<body>
+<block class="block">
+    <a href="reader">Читатели</a> <a href="logbook">Формуляр</a> <a href="#">Библиотекари</a><a href="reader?Param=true">Должники</a>
+</block>
+<h1>Данные о библиотекарях</h1>
+<div class="container" th:each = "librarian : ${Librarian}">
+    <div class="card">
+        <div class="card-header">
+            <a th:text="${librarian.fullName}"></a>
+        </div>
+        <div class="card-body">
+            <p><strong>Уникальный номер:</strong></p><p th:text="${librarian.ID_Librarian}"></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

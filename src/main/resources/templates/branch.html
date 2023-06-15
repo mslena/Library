@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Филиал</title>
+    <style>
+        * {
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+ max-width: 800px;
+ margin: 50px auto;
+  display:inline;
+ float:left;
+ padding : 10px;
+}
+
+h1 {
+ margin-bottom: 20px;
+ text-align: center;
+ color: #2c3e50;
+}
+
+.branch {
+ background-color: #fff;
+ box-shadow: 0 0 10px rgba(0,0,0,0.3);
+ border-radius: 10px;
+ padding: 20px;
+ margin-bottom: 20px;
+}
+
+.branch h2 {
+ margin-bottom: 10px;
+ color: #2c3e50;
+ font-size: 24px;
+}
+
+.branch p {
+ margin-bottom: 5px;
+ color: #2c3e50;
+ font-size: 16px;
+}
+
+.branch p strong {
+ font-weight: bold;
+ color: #2980b9;
+}
+
+.branch a {
+ display: inline-block;
+ margin-top: 10px;
+ padding: 10px 20px;
+ background-color: #2980b9;
+ color: #fff;
+ text-align: center;
+ text-decoration: none;
+ border-radius: 5px;
+ transition: background-color 0.3s ease-in-out;
+}
+
+.branch a:hover {
+ background-color: #3498db;
+}
+.block{
+ max-width: 6000px;
+ margin: 50px auto;
+ padding: 50px;
+ background-color: #fff;
+ border-radius: 10px;
+}
+block a {
+ display: inline-block;
+ margin-top: 100px;
+ margin: 25px;
+ padding: 15px 15px 15px 20px;
+ width: 350px;
+ background-color: #2c3e50;
+ color: #fff;
+ text-align: center;
+ text-decoration: none;
+ border-radius: 10px;
+ transition: background-color 0.3s ease-in-out;
+ font-size: 24px;
+}
+
+block a:hover {
+ background-color: #2c3e50;
+}
+    </style>
+</head>
+<body>
+<block class="block">
+    <a href="catalog">Каталог</a> <a href="book">Экземпляры книг</a> <a href="#">Филиалы</a> <a  href="condition">Состояния книг</a>
+</block>
+<h1>Филиалы библиотеки</h1>
+<div class="container" th:each = "branch: ${Branch}">
+    <div class="branch" >
+        <h2>Филиал</h2>
+        <p><strong>Адрес:</strong></p><p th:text = "${branch.Address}"></p>
+        <p><strong>Режим работы:</strong></p><p> Пн-Пт: 9:00-18:00, Сб: 10:00-16:00, Вс: выходной</p>
+        <p><strong>Номинальное количество книг:</strong></p><p th:text = "${branch.NominalNumberOfBook}"></p>
+        <p><strong>Фактическое количество книг:</strong></p><p th:text = "${branch.ActualNumberOfBook}"></p>
+    </div>
+</div>
+</body>
+</html>
