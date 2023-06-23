@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная страница</title>
+    <style>
+    * {
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+ display: flex;
+ float: bottom;
+ max-width: 1800px;
+ height: 800px;
+ margin: 50px auto;
+ justify-content: center;
+ align-items: center;
+}
+
+.buttons {
+ display: inline;
+ float : bottom;
+ justify-content: center;
+ align-items: center;
+}
+
+.button {
+ display: inline-block;
+ padding: 10px 20px;
+ border: none;
+ border-radius: 15px;
+ font-size: 30px;
+ cursor: pointer;
+}
+
+.login {
+ background-color: #2c3e50;
+ color: #fff;
+ text-decoration: none;
+ margin-right: 10px;
+}
+  </style>
+</head>
+<body>
+<div class="container">
+    <div class="buttons">
+        <a href="book" class="button login">КНИГИ</a>
+    </div>
+    <div class="buttons">
+        <a href="logbook" class="button login">ФОРМУЛЯР</a>
+    </div>
+</div>
+</body>
+</html>

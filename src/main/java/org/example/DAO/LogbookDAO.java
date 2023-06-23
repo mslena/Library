@@ -8,14 +8,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Repository
 @AllArgsConstructor
 public class LogbookDAO implements DAO {
     private final JdbcTemplate jdbcTemplate;
-
 
     @Override
     public List getAll() {
@@ -49,18 +47,27 @@ public class LogbookDAO implements DAO {
         return jdbcTemplate.update(SQL, UUID.fromString(librarian.get(0).getID_Librarian()), UUID.fromString(readers.get(0).getLibraryCardNumber()),UUID.fromString(books.get(0).getID_Book()),UUID.fromString(branch.get(0).getID_Branch()),UUID.fromString(books.get(0).getFK_ID_Catalog()), DateOfTaking);
     }
 
-    @Override
-    public void save(Object o) {
-
+    public void update (String ID_Taking, String NameLibrarian, String FullName, String FK_ID_Book, String DateOfTaking, String ReturnDate) {
+        String SQL1 = "SELECT * FROM \"Reader\" AS RD\n" +
+                " WHERE RD.\"FullName\" = ?";
+        List<Reader> readers = jdbcTemplate.query(SQL1, new Object[] {FullName}, new ReaderMapper());
+        String SQL2 = "SELECT * FROM \"InstanceBook\" AS IB \n" +
+                "INNER JOIN \"Catalog\" AS CT\n" +
+                "ON IB.\"FK_ID_Catalog\" = CT.\"ID_Catalog\" \n"+
+                " WHERE IB.\"ID_Book\" = ?";
+        List<InstanceBook> books = jdbcTemplate.query(SQL2, new Object[] {UUID.fromString(FK_ID_Book)}, new InstanceBookMapper());
+        String SQL4 = "SELECT * FROM \"Librarian\" AS LB \n" +
+                " WHERE LB.\"FullName\" = ?";
+        List<Librarian> librarian = jdbcTemplate.query(SQL4, new Object[] {NameLibrarian}, new LibrarianMapper());
+        String SQL = "UPDATE public.\"Logbook\"\n" +
+                "\tSET  \"FK_ID_Librarian\"=?, \"FK_LibraryCardNumber\"=?, \"FK_ID_Book\"=?, \"FK_ID_Branch\"=?, \"FK_ID_Catalog\"=?, \"ReturnDate\"=?, \"DateOfTaking\"=?\n" +
+                "\tWHERE \"ID_Taking\"=?;";
+        jdbcTemplate.update(SQL, UUID.fromString(librarian.get(0).getID_Librarian()), UUID.fromString(readers.get(0).getLibraryCardNumber()), UUID.fromString(FK_ID_Book), UUID.fromString(books.get(0).getFK_ID_Branch()), UUID.fromString(books.get(0).getFK_ID_Catalog()), ReturnDate, DateOfTaking, UUID.fromString(ID_Taking));
     }
 
-    @Override
-    public void update(Object o, String[] params) {
-
-    }
-
-    @Override
-    public void delete(Object o) {
-
+    public void delete (String ID_Taking) {
+        String SQL = "DELETE FROM public.\"Logbook\"\n" +
+                "\tWHERE \"ID_Taking\" = ?;";
+        jdbcTemplate.update(SQL, new Object[] {UUID.fromString(ID_Taking)});
     }
 }

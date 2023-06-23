@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org" >
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8">
-    <title>Регистрация в библиотеке</title>
-    <style>
+    <meta charset="UTF-8">
+    <title>Обновление данных о читателе</title>
+  <style>
   .container {
  max-width: 950px;
  margin: 50px auto;
@@ -27,7 +27,9 @@ form label {
 }
 
 form input[type="text"],
-form textarea {
+form textarea,
+ form select,
+form input[type="submit"]{
  display: block;
  width: 100%;
  padding: 10px;
@@ -59,8 +61,15 @@ form input[type="submit"]:hover {
 </head>
 <body>
 <div class = "container">
-<h1>Регистрация в библиотеке</h1>
-<form>
+  <h1>Обновление данных читателя</h1>
+  <form>
+    <label for="libraryCardNumber">Номер читательского билета:</label>
+    <select id="LibraryCardNumber" name="LibraryCardNumber" >
+      <div th:each = "reader : ${Reader}">
+        <option th:text = "${reader.LibraryCardNumber}"></option>
+      </div>
+    </select>
+
     <label for="fullName">ФИО:</label>
     <input type="text" id="fullName" name="fullName" required>
 
@@ -76,8 +85,14 @@ form input[type="submit"]:hover {
     <label for="profession">Профессия:</label>
     <input type="text" id="profession" name="profession"  required>
 
-  <input type="submit" value="Добавить пользователя">
-</form>
+    <label for="takenBooks">Количество взятых книг:</label>
+    <input type="text" id="takenBooks" name="takenBooks"  required>
+
+    <label for="libraryEntryDates">Даты записей в библиотеку:</label>
+    <input type="text" id="libraryEntryDates" name="libraryEntryDates"  required>
+
+    <input type="submit" value="Обновить данные">
+  </form>
 </div>
 </body>
 </html>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Добавление записи о взятии книги</title>
+  <title>Добавление состояния книги</title>
   <style>
     * {
  margin: 0;
@@ -59,24 +59,24 @@ form input[type="submit"]:hover {
 </head>
 <body>
 <div class="container">
-  <h1>Добавление записи о взятии книги:</h1>
+  <h1>Добавление состояние книги:</h1>
   <form>
-    <label for="DateOfTaking">Дата взятия:</label>
-    <input type="text" id="DateOfTaking" name="DateOfTaking" required>
+    <label for="Author">Автор:</label>
+    <input type="text" id="Author" name="Author" required>
 
-    <label for="FullName">ФИО читателя:</label>
-    <input type="text" id="FullName" name="FullName" required>
+    <label for="Name">Название:</label>
+    <input type="text" id="Name" name="Name" required>
 
-    <label for="NameLibrarian">фИО библиотекаря:</label>
-    <input type="text" id="NameLibrarian" name="NameLibrarian" required>
+    <label for="Condition">Состояние:</label>
+    <input type="text" id="Condition" name="Condition" required>
 
-    <label for="ID_Book">Уникальный номер книги:</label>
-    <input type="text" id="ID_Book" name="ID_Book" required>
+    <label for="StatusRecordDate">Дата записи:</label>
+    <input type="text" id="StatusRecordDate" name="StatusRecordDate" required>
 
-    <label for="Address">Адрес филиала:</label>
-    <input type="text" id="Address" name="Address" required>
+    <label for="FK_ID_Book">Уникальный номер книги:</label>
+    <input type="text" id="FK_ID_Book" name="FK_ID_Book" required>
 
-    <input type="submit" value="Добавить запись">
+    <input type="submit" value="Добавить состояние">
   </form>
 </div>
 </body>

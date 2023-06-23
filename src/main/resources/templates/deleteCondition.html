@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Добавление книги</title>
-  <style>
+    <title>Удаление состояния книги</title>
+    <style>
     * {
  margin: 0;
  padding: 0;
@@ -59,25 +59,16 @@ form input[type="submit"]:hover {
 </head>
 <body>
 <div class="container">
-  <h1>Добавление каталога книги:</h1>
-  <form>
-    <label for="Name">Название книги:</label>
-    <input type="text" id="Name" name="Name" required>
-
-    <label for="Author">Автор:</label>
-    <input type="text" id="Author" name="Author" required>
-
-    <label for="YearOfPublishing">Год издания:</label>
-    <input type="number" id="YearOfPublishing" name="YearOfPublishing" required>
-
-    <label for="KeyWords">Ключевые слова:</label>
-    <input type="text" id="KeyWords" name="KeyWords" required>
-
-    <label for="Quantity">Количество:</label>
-    <input type="number" id="Quantity" name="Quantity" required>
-
-    <input type="submit" value="Добавить книгу">
-  </form>
+    <h1>Удаление состояния книги:</h1>
+    <form>
+        <label for="ID_Condition">Уникальный номер состояния книги:</label>
+        <select id="ID_Condition" name="ID_Condition" >
+            <div th:each = "condition : ${Condition}">
+                <option th:text = "${condition.ID_Condition}"></option>
+            </div>
+        </select>
+        <input type="submit" value="Удалить">
+    </form>
 </div>
 </body>
 </html>

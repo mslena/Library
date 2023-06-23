@@ -10,11 +10,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 @AllArgsConstructor
 @Repository
 public class ReaderDAO implements DAO {
     private final JdbcTemplate jdbcTemplate;
+
     public List<Reader> getReaderToAgeGenderProfession(String profession, String age, String gender)
     {
 
@@ -27,7 +29,7 @@ public class ReaderDAO implements DAO {
         String SQL = "SELECT * FROM \"Reader\" AS RD\n" +
                 "INNER JOIN \"Logbook\" AS LB\n" +
                 "ON RD.\"LibraryCardNumber\" = LB.\"FK_LibraryCardNumber\"\n" +
-                "WHERE LB.\"ReturnDate\" = LB.\"DateOfTaking\" + 14\n";
+                "WHERE LB.\"ReturnDate\" != 'null'";
         List<Reader> reader = jdbcTemplate.query(SQL, new ReaderMapper());
         return reader;
     }
@@ -42,23 +44,21 @@ public class ReaderDAO implements DAO {
 
     public int setAll(String fullName, String passportData, String gender, String profession, String age) {
         String SQL = "INSERT INTO public.\"Reader\"(\n" +
-                "\t\"LibraryCardNumber\", \"FullName\", \"PassportData\", \"Gender\", \"Profession\", \"Age\")\n" +
-                "\tVALUES (gen_random_uuid(), ?, ?, ?, ?, ?);";
+                "\t\"LibraryCardNumber\", \"FullName\", \"Gender\", \"TakenBooks\", \"Profession\", \"Age\", \"PassportData\", \"LibraryEntryDates\")\n" +
+                "\tVALUES (gen_random_uuid(), ?, ?, '0', ?, ?, ?, 'Нет');";
         return jdbcTemplate.update(SQL, fullName, passportData, gender, profession, age);
     }
 
-    @Override
-    public void save(Object o) {
-
+    public void update (String libraryCardNumber, String fullName, String gender, String age, String passportData, String profession, String takenBooks,String libraryEntryDates) {
+        String SQL = "UPDATE public.\"Reader\"\n" +
+                "\tSET \"FullName\"=?, \"Gender\"=?, \"TakenBooks\"=?, \"Profession\"=?, \"LibraryEntryDates\"=?, \"Age\"=?, \"PassportData\"=?\n" +
+                "\tWHERE \"LibraryCardNumber\"=?;";
+        jdbcTemplate.update(SQL, fullName, gender, takenBooks, profession, libraryEntryDates, age, passportData, UUID.fromString(libraryCardNumber));
     }
 
-    @Override
-    public void update(Object o, String[] params) {
-
-    }
-
-    @Override
-    public void delete(Object o) {
-
+    public void delete (String LibraryCardNumber) {
+        String SQL = "DELETE FROM public.\"Reader\"\n" +
+                "\tWHERE \"LibraryCardNumber\" = ?;";
+        jdbcTemplate.update(SQL, new Object[] {UUID.fromString(LibraryCardNumber)});
     }
 }

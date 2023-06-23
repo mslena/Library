@@ -2,13 +2,16 @@ package org.example.DAO;
 
 import lombok.AllArgsConstructor;
 import org.example.Classes.Branch;
+import org.example.Classes.Librarian;
 import org.example.Interface.DAO;
 import org.example.Mapper.BranchMapper;
+import org.example.Mapper.LibrarianMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 @AllArgsConstructor
@@ -29,18 +32,16 @@ public class BranchDAO implements DAO {
         return jdbcTemplate.update(SQL, Address, NominalNumberOfBooks, ActualNumberOfBooks);
     }
 
-    @Override
-    public void save(Object o) {
-
+    public void update (String ID_Branch, String Address, String NominalNumberOfBooks, String ActualNumberOfBooks) {
+    String SQL = "UPDATE public.\"Branch\"\n" +
+            "\tSET \"Address\"=?, \"NominalNumberOfBooks\"=?, \"ActualNumberOfBooks\"=?\n" +
+            "\tWHERE \"ID_Branch\"=?;";
+    jdbcTemplate.update(SQL, Address, NominalNumberOfBooks, ActualNumberOfBooks, UUID.fromString(ID_Branch));
     }
 
-    @Override
-    public void update(Object o, String[] params) {
-
-    }
-
-    @Override
-    public void delete(Object o) {
-
+    public void delete (String ID_Branch) {
+        String SQL = "DELETE FROM public.\"Branch\"\n" +
+                "\tWHERE \"ID_Branch\" = ?;";
+        jdbcTemplate.update(SQL, new Object[] {UUID.fromString(ID_Branch)});
     }
 }

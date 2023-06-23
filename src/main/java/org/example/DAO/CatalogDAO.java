@@ -7,6 +7,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
+
 import org.example.Classes.*;
 
 @Repository
@@ -37,18 +39,16 @@ public class CatalogDAO implements DAO {
         return catalog;
     }
 
-    @Override
-    public void save(Object o) {
-
+    public int update (String ID_Catalog, String Author, String Name, String Keywords, String YearOfPublishing, String Quantity) {
+        String SQL = "UPDATE public.\"Catalog\"\n" +
+                "\tSET  \"Author\"=?, \"Name\"=?, \"Keywords\"=?, \"YearOfPublishing\"=?, \"Quantity\"=?\n" +
+                "\tWHERE \"ID_Catalog\"=?;";
+        return jdbcTemplate.update(SQL, Author, Name, Keywords, YearOfPublishing, Quantity, UUID.fromString(ID_Catalog));
     }
 
-    @Override
-    public void update(Object o, String[] params) {
-
-    }
-
-    @Override
-    public void delete(Object o) {
-
+    public void delete (String ID_Catalog) {
+        String SQL = "DELETE FROM public.\"Catalog\"\n" +
+                "\tWHERE \"ID_Catalog\" = ?;";
+        jdbcTemplate.update(SQL, new Object[] {UUID.fromString(ID_Catalog)});
     }
 }

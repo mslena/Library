@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Добавление записи о взятии книги</title>
+  <title>Удаление библиотекаря</title>
   <style>
     * {
  margin: 0;
@@ -59,24 +59,15 @@ form input[type="submit"]:hover {
 </head>
 <body>
 <div class="container">
-  <h1>Добавление записи о взятии книги:</h1>
+  <h1>Удаление библиотекаря:</h1>
   <form>
-    <label for="DateOfTaking">Дата взятия:</label>
-    <input type="text" id="DateOfTaking" name="DateOfTaking" required>
-
-    <label for="FullName">ФИО читателя:</label>
-    <input type="text" id="FullName" name="FullName" required>
-
-    <label for="NameLibrarian">фИО библиотекаря:</label>
-    <input type="text" id="NameLibrarian" name="NameLibrarian" required>
-
-    <label for="ID_Book">Уникальный номер книги:</label>
-    <input type="text" id="ID_Book" name="ID_Book" required>
-
-    <label for="Address">Адрес филиала:</label>
-    <input type="text" id="Address" name="Address" required>
-
-    <input type="submit" value="Добавить запись">
+    <label for="ID_Librarian">Уникальный номер библиотекаря:</label>
+    <select id="ID_Librarian" name="ID_Librarian" >
+      <div th:each = "librarian : ${Librarian}">
+        <option th:text = "${librarian.ID_Librarian}"></option>
+      </div>
+    </select>
+    <input type="submit" value="Удалить">
   </form>
 </div>
 </body>

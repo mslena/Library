@@ -8,6 +8,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
+
 @Repository
 @AllArgsConstructor
 public class LibrarianDAO implements DAO {
@@ -28,18 +30,16 @@ public class LibrarianDAO implements DAO {
         return jdbcTemplate.update(SQL, fullName);
     }
 
-    @Override
-    public void save(Object o) {
-
+    public void update (String ID_Librarian, String fullName) {
+        String SQL = "UPDATE \"Librarian\"\n" +
+                "SET \"FullName\"= ?\n" +
+                "WHERE \"ID_Librarian\"= ?;";
+        jdbcTemplate.update(SQL, fullName, UUID.fromString(ID_Librarian));
     }
 
-    @Override
-    public void update(Object o, String[] params) {
-
-    }
-
-    @Override
-    public void delete(Object o) {
-
+    public void delete (String ID_Librarian) {
+        String SQL = "DELETE FROM public.\"Librarian\"\n" +
+                "\tWHERE \"ID_Librarian\" = ?;";
+        jdbcTemplate.update(SQL, new Object[] {UUID.fromString(ID_Librarian)});
     }
 }

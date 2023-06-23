@@ -57,18 +57,17 @@ public class InstanceBookDAO implements DAO {
                 "\tVALUES (gen_random_uuid(), ?, ?, ?, ?);";
         return jdbcTemplate.update(SQL, RoomNumber, RackCoordinate, UUID.fromString(catalogs.get(0).getID_Catalog()),UUID.fromString(branch.get(0).getID_Branch()));
     }
-    @Override
-    public void save(Object o) {
 
+    public void delete (String ID_Book) {
+        String SQL = "DELETE FROM public.\"InstanceBook\"\n" +
+                "\tWHERE \"ID_Book\" = ?;";
+        jdbcTemplate.update(SQL, new Object[] {UUID.fromString(ID_Book)});
     }
 
-    @Override
-    public void update(Object o, String[] params) {
-
-    }
-
-    @Override
-    public void delete(Object o) {
-
+    public int update (String ID_Book, String RoomNumber, String RackCoordinate) {
+        String SQL = "UPDATE public.\"InstanceBook\"\n" +
+                "\tSET \"RoomNumber\"=?, \"RackCoordinate\"=?\n" +
+                "\tWHERE \"ID_Book\"=?;";
+        return jdbcTemplate.update(SQL, RoomNumber, RackCoordinate, UUID.fromString(ID_Book));
     }
 }

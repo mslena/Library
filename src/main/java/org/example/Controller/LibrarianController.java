@@ -28,4 +28,24 @@ public class LibrarianController {
         }
         return new ModelAndView("/addLibrarian");
     }
+
+    @GetMapping("/updateLibrarian")
+    public ModelAndView updateObject( @PathParam(value="ID_Librarian") String ID_Librarian, @PathParam(value="fullName") String fullName) {
+        if (ID_Librarian != null) {
+            librarianDAO.update(ID_Librarian, fullName);
+            return new ModelAndView("librarian").addObject("Librarian", librarianDAO.getAll());
+        }
+        return new ModelAndView("/updateLibrarian").addObject("Librarian", librarianDAO.getAll());
+    }
+
+    @GetMapping("/deleteLibrarian")
+    public ModelAndView deleteObject (@PathParam(value = "ID_Librarian") String ID_Librarian)
+    {
+        if (ID_Librarian != null) {
+            librarianDAO.delete(ID_Librarian);
+            return new ModelAndView("librarian").addObject("Librarian", librarianDAO.getAll());
+        }
+        return new ModelAndView("deleteLibrarian").addObject("Librarian", librarianDAO.getAll());
+    }
+
 }
